@@ -3,11 +3,11 @@ package MyCalendar.calendar.domain;
 import java.time.LocalDateTime;
 
 public class Reunion extends Evenement {
-    private final String lieu;
-    private final String participants;
+    private final LieuEvenement lieu;
+    private final ParticipantsEvenement participants;
 
     public Reunion(TitreEvenement titre, LocalDateTime dateDebut, DureeEvenement duree,
-                   String lieu, String participants) {
+                   LieuEvenement lieu, ParticipantsEvenement participants) {
         super(titre, dateDebut, duree);
         this.lieu = lieu;
         this.participants = participants;
@@ -15,6 +15,6 @@ public class Reunion extends Evenement {
 
     @Override
     public String description() {
-        return "Réunion : " + titre.value() + " à " + lieu + " avec " + participants;
+        return "Réunion : " + titre.value() + " à " + lieu.value() + " avec " + participants.affichage();
     }
 }
