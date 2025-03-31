@@ -72,5 +72,24 @@ class CalendrierTest {
         assertEquals(0, calendrier.tous().size());
     }
 
+    @Test
+    void deuxEvenementsQuiSeChevauchentSontDetectesCommeConflits() {
+        var rdv1 = new RendezVous(
+                new TitreEvenement("Consultation"),
+                LocalDateTime.of(2025, 4, 15, 10, 0),
+                new DureeEvenement(60) // 10h00 --> 11h00
+        );
+
+        var rdv2 = new RendezVous(
+                new TitreEvenement("Massage"),
+                LocalDateTime.of(2025, 4, 15, 10, 30),
+                new DureeEvenement(30) // 10h30 --> 11h00
+        );
+
+        assertTrue(rdv1.chevauche(rdv2));
+        assertTrue(rdv2.chevauche(rdv1));
+    }
+
+
 
 }

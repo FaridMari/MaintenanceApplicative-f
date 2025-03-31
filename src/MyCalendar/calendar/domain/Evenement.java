@@ -30,5 +30,13 @@ public abstract class Evenement {
         return id;
     }
 
+    public boolean chevauche(Evenement autre) {
+        LocalDateTime fin = this.dateDebut.plusMinutes(this.duree.minutes());
+        LocalDateTime finAutre = autre.dateDebut.plusMinutes(autre.duree.minutes());
+
+        return this.dateDebut.isBefore(finAutre) && fin.isAfter(autre.dateDebut);
+    }
+
+
 
 }
