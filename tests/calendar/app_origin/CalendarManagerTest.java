@@ -2,10 +2,15 @@ package calendar.app_origin;
 
 import MyCalendar.CalendarManager;
 import MyCalendar.Event;
+import MyCalendar.calendar.domain.EvenementPeriodique;
+import MyCalendar.calendar.domain.RendezVous;
+import MyCalendar.calendar.domain.Reunion;
+import MyCalendar.calendar.domain.valueObject.*;
 import MyCalendar.calendar.infrastructure.EventMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +21,13 @@ public class CalendarManagerTest {
         var manager = new CalendarManager();
         var date = LocalDateTime.of(2025, 4, 5, 10, 0);
 
-        manager.ajouterEvent("RDV_PERSONNEL", "Dentiste", "Alice", date, 60, "", "", 0);
+        manager.ajouterEvenement(
+                new RendezVous(
+                        new TitreEvenement("Dentiste"),
+                        date,
+                        new DureeEvenement(60)
+                )
+        );
 
         var result = manager.eventsDansPeriode(
                 date.minusHours(1),
@@ -33,7 +44,15 @@ public class CalendarManagerTest {
         var manager = new CalendarManager();
         var date = LocalDateTime.of(2025, 4, 6, 14, 0);
 
-        manager.ajouterEvent("REUNION", "Projet", "Alice", date, 90, "Salle A", "Alice, Bob", 0);
+        manager.ajouterEvenement(
+                new Reunion(
+                        new TitreEvenement("Projet"),
+                        date,
+                        new DureeEvenement(90),
+                        new LieuEvenement("Salle A"),
+                        new ParticipantsEvenement(List.of("Alice", "Bob"))
+                )
+        );
 
         var result = manager.eventsDansPeriode(date.minusDays(1), date.plusDays(1));
 
@@ -47,7 +66,14 @@ public class CalendarManagerTest {
         var manager = new CalendarManager();
         var date = LocalDateTime.of(2025, 4, 1, 18, 0);
 
-        manager.ajouterEvent("PERIODIQUE", "Yoga", "Roger", date, 60, "", "", 7);
+        manager.ajouterEvenement(
+                new EvenementPeriodique(
+                        new TitreEvenement("Yoga"),
+                        date,
+                        new DureeEvenement(60),
+                        new FrequenceRepetition(7)
+                )
+        );
 
         var result = manager.eventsDansPeriode(
                 LocalDateTime.of(2025, 4, 1, 0, 0),

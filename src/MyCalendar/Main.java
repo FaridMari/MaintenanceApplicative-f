@@ -1,5 +1,11 @@
 package MyCalendar;
 
+import MyCalendar.calendar.domain.Evenement;
+import MyCalendar.calendar.domain.EvenementPeriodique;
+import MyCalendar.calendar.domain.RendezVous;
+import MyCalendar.calendar.domain.Reunion;
+import MyCalendar.calendar.domain.valueObject.*;
+
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
@@ -176,9 +182,14 @@ public class Main {
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent("RDV_PERSONNEL", titre, utilisateur,
-                                LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree,
-                                "", "", 0);
+                        calendar.ajouterEvenement(
+                                new RendezVous(
+                                        new TitreEvenement(titre),
+                                        LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute),
+                                        new DureeEvenement(duree)
+                                )
+                        );
+
 
                         System.out.println("Événement ajouté.");
                         break;
@@ -212,9 +223,16 @@ public class Main {
                             participants += ", " + scanner.nextLine();
                         }
 
-                        calendar.ajouterEvent("REUNION", titre2, utilisateur,
-                                LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
-                                lieu, participants, 0);
+                        calendar.ajouterEvenement(
+                                new Reunion(
+                                        new TitreEvenement(titre2),
+                                        LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2),
+                                        new DureeEvenement(duree2),
+                                        new LieuEvenement(lieu),
+                                        new ParticipantsEvenement(List.of(participants.split(",\\s*")))
+                                )
+                        );
+
 
                         System.out.println("Événement ajouté.");
                         break;
@@ -236,11 +254,17 @@ public class Main {
                         System.out.print("Frequence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent("PERIODIQUE", titre3, utilisateur,
-                                LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
-                                "", "", frequence);
+                            calendar.ajouterEvenement(
+                                    new EvenementPeriodique(
+                                            new TitreEvenement(titre3),
+                                            LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3),
+                                            new DureeEvenement(0), // ou une durée réelle si souhaitée
+                                            new FrequenceRepetition(frequence)
+                                    )
+                            );
 
-                        System.out.println("Événement ajouté.");
+
+                            System.out.println("Événement ajouté.");
                         break;
 
                     default:
@@ -253,12 +277,12 @@ public class Main {
         }
     }
 
-    private static void afficherListe(List<Event> evenements) {
+    private static void afficherListe(List<Evenement> evenements) {
         if (evenements.isEmpty()) {
             System.out.println("Aucun événement trouvé pour cette période.");
         } else {
             System.out.println("Événements trouvés : ");
-            for (Event e : evenements) {
+            for (Evenement e : evenements) {
                 System.out.println("- " + e.description());
             }
         }
