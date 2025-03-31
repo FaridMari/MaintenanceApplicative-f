@@ -1,5 +1,7 @@
 package MyCalendar.calendar.domain;
 
+import MyCalendar.calendar.domain.valueObject.EventId;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,4 +22,9 @@ public class Calendrier {
     public List<Evenement> tous() {
         return List.copyOf(evenements);
     }
+
+    public void supprimerParId(EventId id) {
+        evenements.removeIf(e -> e.id().equals(id));
+    }
+
 }
