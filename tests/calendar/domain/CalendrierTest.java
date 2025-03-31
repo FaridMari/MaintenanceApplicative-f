@@ -51,4 +51,26 @@ class CalendrierTest {
         assertEquals(titre1, resultat.get(0).titre());
     }
 
+    @Test
+    void peutSupprimerUnEvenementParSonId() {
+        var calendrier = new Calendrier();
+
+        var rdv = new RendezVous(
+                new TitreEvenement("Vaccin"),
+                LocalDateTime.of(2025, 4, 10, 15, 0),
+                new DureeEvenement(30)
+        );
+
+        calendrier.ajouter(rdv);
+
+        assertEquals(1, calendrier.tous().size());
+
+        var id = rdv.id();
+
+        calendrier.supprimerParId(id);
+
+        assertEquals(0, calendrier.tous().size());
+    }
+
+
 }
