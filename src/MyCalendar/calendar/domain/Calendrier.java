@@ -27,4 +27,10 @@ public class Calendrier {
         evenements.removeIf(e -> e.id().equals(id));
     }
 
+    public boolean estEnConflitAvec(Evenement nouveau) {
+        return evenements.stream()
+                .anyMatch(e -> e.chevauche(nouveau));
+    }
+
+
 }
