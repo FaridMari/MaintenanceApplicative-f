@@ -26,4 +26,29 @@ class CalendrierTest {
         assertTrue(calendrier.tous().contains(rdv));
         assertEquals(1, calendrier.tous().size());
     }
+
+    @Test
+    void retourneSeulementLesEvenementsDansUnePeriode() {
+        var calendrier = new Calendrier();
+
+        var titre1 = new TitreEvenement("Dentiste");
+        var titre2 = new TitreEvenement("Course");
+
+        var date1 = LocalDateTime.of(2025, 4, 5, 10, 0);
+        var date2 = LocalDateTime.of(2025, 4, 20, 9, 0);
+
+        var duree = new DureeEvenement(60);
+
+        calendrier.ajouter(new RendezVous(titre1, date1, duree)); // dans la période
+        calendrier.ajouter(new RendezVous(titre2, date2, duree)); // en dehors
+
+        var debut = LocalDateTime.of(2025, 4, 1, 0, 0);
+        var fin = LocalDateTime.of(2025, 4, 10, 23, 59);
+
+        var resultat = calendrier.evenementsDansPeriode(debut, fin);
+
+        assertEquals(1, resultat.size());
+        assertEquals(titre1, resultat.get(0).titre());
+    }
+
 }

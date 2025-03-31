@@ -17,4 +17,9 @@ public abstract class Evenement {
     }
 
     public abstract String description();
+
+    public TitreEvenement titre() {
+        return titre;
+    }
+
 }
