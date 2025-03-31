@@ -15,13 +15,9 @@ public class CalendarManager {
         calendrier.ajouter(evenement);
     }
 
-    public List<Evenement> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        return calendrier.evenementsDansPeriode(
-                new DateEvenement(debut),
-                new DateEvenement(fin)
-        );
+    public List<Evenement> eventsDansPeriode(DateEvenement debut, DateEvenement fin) {
+        return calendrier.evenementsDansPeriode(debut, fin);
     }
-
 
     public boolean conflit(Evenement e1, Evenement e2) {
         return e1.chevauche(e2);

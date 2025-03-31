@@ -19,12 +19,12 @@ public class CalendarManagerTest {
     @Test
     void ajouterUnRdvEstBienRecupereDansUnePeriode() {
         var manager = new CalendarManager();
-        var date = LocalDateTime.of(2025, 4, 5, 10, 0);
+        var date = new DateEvenement(LocalDateTime.of(2025, 4, 5, 10, 0));
 
         manager.ajouterEvenement(
                 new RendezVous(
                         new TitreEvenement("Dentiste"),
-                        new DateEvenement(date),
+                        date,
                         new DureeEvenement(60)
                 )
         );
@@ -43,14 +43,16 @@ public class CalendarManagerTest {
     @Test
     void ajouterUneReunionDonneUneBonneDescription() {
         var manager = new CalendarManager();
-        var date = LocalDateTime.of(2025, 4, 6, 14, 0);
+        var date = new DateEvenement(LocalDateTime.of(2025, 4, 6, 14, 0));
 
-        new Reunion(
-                new TitreEvenement("Projet"),
-                new DateEvenement(date),
-                new DureeEvenement(90),
-                new LieuEvenement("Salle A"),
-                new ParticipantsEvenement(List.of("Alice", "Bob"))
+        manager.ajouterEvenement(
+                new Reunion(
+                        new TitreEvenement("Projet"),
+                        date,
+                        new DureeEvenement(90),
+                        new LieuEvenement("Salle A"),
+                        new ParticipantsEvenement(List.of("Alice", "Bob"))
+                )
         );
 
         var result = manager.eventsDansPeriode(date.minusDays(1), date.plusDays(1));
@@ -58,6 +60,7 @@ public class CalendarManagerTest {
         assertEquals(1, result.size());
         assertEquals("Réunion : Projet à Salle A avec Alice, Bob", result.get(0).description());
     }
+
 
 
     @Test
@@ -75,8 +78,8 @@ public class CalendarManagerTest {
         );
 
         var result = manager.eventsDansPeriode(
-                LocalDateTime.of(2025, 4, 1, 0, 0),
-                LocalDateTime.of(2025, 4, 30, 23, 59)
+                new DateEvenement(LocalDateTime.of(2025, 4, 1, 0, 0)),
+                new DateEvenement(LocalDateTime.of(2025, 4, 30, 23, 59))
         );
 
         assertEquals(1, result.size());

@@ -14,9 +14,6 @@ public class DateEvenement {
         return value;
     }
 
-    public DateEvenement plusDays(long days) {
-        return new DateEvenement(value.plusDays(days));
-    }
 
     public boolean isBefore(DateEvenement other) {
         return value.isBefore(other.value());
@@ -29,6 +26,31 @@ public class DateEvenement {
     public boolean isBetween(DateEvenement debut, DateEvenement fin) {
         return !isBefore(debut) && !isAfter(fin);
     }
+
+    public DateEvenement plusMonths(long months) {
+        return new DateEvenement(value.plusMonths(months));
+    }
+
+    public DateEvenement plusDays(long days) {
+        return new DateEvenement(value.plusDays(days));
+    }
+
+    public DateEvenement minusDays(long days) {
+        return new DateEvenement(value.minusDays(days));
+    }
+
+    public DateEvenement minusSeconds(long seconds) {
+        return new DateEvenement(value.minusSeconds(seconds));
+    }
+
+    public DateEvenement plusHours(long hours) {
+        return new DateEvenement(value.plusHours(hours));
+    }
+
+    public DateEvenement minusHours(long hours) {
+        return new DateEvenement(value.minusHours(hours));
+    }
+
 
     @Override
     public String toString() {
