@@ -2,6 +2,9 @@ package calendar.domain;
 
 import MyCalendar.calendar.domain.*;
 
+import MyCalendar.calendar.domain.valueObject.DureeEvenement;
+import MyCalendar.calendar.domain.valueObject.FrequenceRepetition;
+import MyCalendar.calendar.domain.valueObject.TitreEvenement;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

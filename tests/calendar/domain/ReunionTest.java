@@ -1,6 +1,10 @@
 package calendar.domain;
 
 import MyCalendar.calendar.domain.*;
+import MyCalendar.calendar.domain.valueObject.DureeEvenement;
+import MyCalendar.calendar.domain.valueObject.LieuEvenement;
+import MyCalendar.calendar.domain.valueObject.ParticipantsEvenement;
+import MyCalendar.calendar.domain.valueObject.TitreEvenement;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

@@ -1,5 +1,8 @@
 package MyCalendar.calendar.domain;
 
+import MyCalendar.calendar.domain.valueObject.DureeEvenement;
+import MyCalendar.calendar.domain.valueObject.TitreEvenement;
+
 import java.time.LocalDateTime;
 
 public class RendezVous extends Evenement {

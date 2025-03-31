@@ -1,4 +1,4 @@
-package MyCalendar.calendar.domain;
+package MyCalendar.calendar.domain.valueObject;
 
 import java.util.Collections;
 import java.util.List;
