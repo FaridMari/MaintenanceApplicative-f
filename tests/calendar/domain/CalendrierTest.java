@@ -6,6 +6,7 @@ import MyCalendar.calendar.domain.valueObject.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -110,6 +111,59 @@ class CalendrierTest {
 
         assertTrue(calendrier.estEnConflitAvec(rdv2));
     }
+
+    @Test
+    void unEvenementPeriodiqueApparaitDansChaqueOccurrenceDansLaPeriode() {
+        var calendrier = new Calendrier();
+
+        var event = new EvenementPeriodique(
+                new TitreEvenement("Yoga"),
+                LocalDateTime.of(2025, 4, 1, 18, 0),
+                new DureeEvenement(60),
+                new FrequenceRepetition(7) // toutes les semaines
+        );
+
+        calendrier.ajouter(event);
+
+        var debut = LocalDateTime.of(2025, 4, 1, 0, 0);
+        var fin = LocalDateTime.of(2025, 4, 30, 23, 59);
+
+        var resultat = calendrier.evenementsDansPeriode(debut, fin);
+
+        assertTrue(resultat.contains(event));
+    }
+
+    @Test
+    void peutGenererUneDescriptionDesEvenementsDansUnePeriode() {
+        var calendrier = new Calendrier();
+
+        var rdv = new RendezVous(
+                new TitreEvenement("Dentiste"),
+                LocalDateTime.of(2025, 4, 5, 10, 0),
+                new DureeEvenement(60)
+        );
+
+        var reunion = new Reunion(
+                new TitreEvenement("Projet"),
+                LocalDateTime.of(2025, 4, 5, 14, 0),
+                new DureeEvenement(90),
+                new LieuEvenement("Salle B"),
+                new ParticipantsEvenement(List.of("Alice", "Bob"))
+        );
+
+        calendrier.ajouter(rdv);
+        calendrier.ajouter(reunion);
+
+        var debut = LocalDateTime.of(2025, 4, 1, 0, 0);
+        var fin = LocalDateTime.of(2025, 4, 6, 23, 59);
+
+        var description = calendrier.decrirePeriode(debut, fin);
+
+        assertTrue(description.contains("RDV : Dentiste à 2025-04-05T10:00"));
+        assertTrue(description.contains("Réunion : Projet à Salle B avec Alice, Bob"));
+    }
+
+
 
 
 }
