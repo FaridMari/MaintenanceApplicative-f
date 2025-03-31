@@ -1,8 +1,8 @@
 package MyCalendar.calendar.domain;
 
+import MyCalendar.calendar.domain.valueObject.DateEvenement;
 import MyCalendar.calendar.domain.valueObject.EventId;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,11 +14,12 @@ public class Calendrier {
         evenements.add(evenement);
     }
 
-    public List<Evenement> evenementsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
+    public List<Evenement> evenementsDansPeriode(DateEvenement debut, DateEvenement fin) {
         return evenements.stream()
-                .filter(e -> !e.dateDebut.isBefore(debut) && !e.dateDebut.isAfter(fin))
+                .filter(e -> e.dateDebut().isBetween(debut, fin))
                 .toList();
     }
+
 
     public List<Evenement> tous() {
         return List.copyOf(evenements);
@@ -33,7 +34,7 @@ public class Calendrier {
                 .anyMatch(e -> e.chevauche(nouveau));
     }
 
-    public String decrirePeriode(LocalDateTime debut, LocalDateTime fin) {
+    public String decrirePeriode(DateEvenement debut, DateEvenement fin) {
         return evenementsDansPeriode(debut, fin).stream()
                 .map(Evenement::description)
                 .collect(Collectors.joining("\n"));

@@ -1,10 +1,7 @@
 package calendar.domain;
 
 import MyCalendar.calendar.domain.*;
-import MyCalendar.calendar.domain.valueObject.DureeEvenement;
-import MyCalendar.calendar.domain.valueObject.LieuEvenement;
-import MyCalendar.calendar.domain.valueObject.ParticipantsEvenement;
-import MyCalendar.calendar.domain.valueObject.TitreEvenement;
+import MyCalendar.calendar.domain.valueObject.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -22,7 +19,13 @@ class ReunionTest {
         var lieu = new LieuEvenement("Salle A201");
         var participants = new ParticipantsEvenement(List.of("Alice", "Bob", "Charlie"));
 
-        Reunion reunion = new Reunion(titre, date, duree, lieu, participants);
+        Reunion reunion = new Reunion(
+                titre,
+                new DateEvenement(date), // ✅ encapsulation
+                duree,
+                lieu,
+                participants
+        );
 
         String attendu = "Réunion : Point projet à Salle A201 avec Alice, Bob, Charlie";
         assertEquals(attendu, reunion.description());

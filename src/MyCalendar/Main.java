@@ -182,14 +182,9 @@ public class Main {
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvenement(
-                                new RendezVous(
-                                        new TitreEvenement(titre),
-                                        LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute),
-                                        new DureeEvenement(duree)
-                                )
-                        );
-
+                        calendar.ajouterEvent("RDV_PERSONNEL", titre, utilisateur,
+                                LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree,
+                                "", "", 0);
 
                         System.out.println("Événement ajouté.");
                         break;
@@ -212,9 +207,9 @@ public class Main {
                         int duree2 = Integer.parseInt(scanner.nextLine());
                         System.out.println("Lieu :");
                         String lieu = scanner.nextLine();
-                        
+
                         String participants = utilisateur;
-                        
+
                         boolean encore = true;
                         System.out.println("Ajouter un participant ? (oui / non)");
                         while (scanner.nextLine().equals("oui"))
@@ -223,21 +218,14 @@ public class Main {
                             participants += ", " + scanner.nextLine();
                         }
 
-                        calendar.ajouterEvenement(
-                                new Reunion(
-                                        new TitreEvenement(titre2),
-                                        LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2),
-                                        new DureeEvenement(duree2),
-                                        new LieuEvenement(lieu),
-                                        new ParticipantsEvenement(List.of(participants.split(",\\s*")))
-                                )
-                        );
-
+                        calendar.ajouterEvent("REUNION", titre2, utilisateur,
+                                LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
+                                lieu, participants, 0);
 
                         System.out.println("Événement ajouté.");
                         break;
 
-                        case "4":
+                    case "4":
                         // Ajout simplifié d'une réunion
                         System.out.print("Titre de l'événement : ");
                         String titre3 = scanner.nextLine();
@@ -254,17 +242,11 @@ public class Main {
                         System.out.print("Frequence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
-                            calendar.ajouterEvenement(
-                                    new EvenementPeriodique(
-                                            new TitreEvenement(titre3),
-                                            LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3),
-                                            new DureeEvenement(0), // ou une durée réelle si souhaitée
-                                            new FrequenceRepetition(frequence)
-                                    )
-                            );
+                        calendar.ajouterEvent("PERIODIQUE", titre3, utilisateur,
+                                LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
+                                "", "", frequence);
 
-
-                            System.out.println("Événement ajouté.");
+                        System.out.println("Événement ajouté.");
                         break;
 
                     default:
@@ -277,12 +259,12 @@ public class Main {
         }
     }
 
-    private static void afficherListe(List<Evenement> evenements) {
+    private static void afficherListe(List<Event> evenements) {
         if (evenements.isEmpty()) {
             System.out.println("Aucun événement trouvé pour cette période.");
         } else {
             System.out.println("Événements trouvés : ");
-            for (Evenement e : evenements) {
+            for (Event e : evenements) {
                 System.out.println("- " + e.description());
             }
         }

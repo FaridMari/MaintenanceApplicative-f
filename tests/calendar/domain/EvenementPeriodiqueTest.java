@@ -2,6 +2,7 @@ package calendar.domain;
 
 import MyCalendar.calendar.domain.*;
 
+import MyCalendar.calendar.domain.valueObject.DateEvenement;
 import MyCalendar.calendar.domain.valueObject.DureeEvenement;
 import MyCalendar.calendar.domain.valueObject.FrequenceRepetition;
 import MyCalendar.calendar.domain.valueObject.TitreEvenement;
@@ -16,7 +17,7 @@ class EvenementPeriodiqueTest {
     @Test
     void unEvenementPeriodiqueGenereUneDescriptionAvecFrequence() {
         var titre = new TitreEvenement("Cours de Yoga");
-        var date = LocalDateTime.of(2025, 4, 7, 18, 0);
+        var date = new DateEvenement(LocalDateTime.of(2025, 4, 7, 18, 0));
         var duree = new DureeEvenement(60);
         var frequence = new FrequenceRepetition(7);
 

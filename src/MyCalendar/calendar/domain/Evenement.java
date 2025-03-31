@@ -1,24 +1,22 @@
 package MyCalendar.calendar.domain;
 
+import MyCalendar.calendar.domain.valueObject.DateEvenement;
 import MyCalendar.calendar.domain.valueObject.DureeEvenement;
 import MyCalendar.calendar.domain.valueObject.EventId;
 import MyCalendar.calendar.domain.valueObject.TitreEvenement;
 
-import java.time.LocalDateTime;
-
 public abstract class Evenement {
     protected final TitreEvenement titre;
-    protected final LocalDateTime dateDebut;
+    protected final DateEvenement dateDebut;
     protected final DureeEvenement duree;
     protected final EventId id;
 
-    protected Evenement(TitreEvenement titre, LocalDateTime dateDebut, DureeEvenement duree) {
+    protected Evenement(TitreEvenement titre, DateEvenement dateDebut, DureeEvenement duree) {
         this.id = new EventId();
         this.titre = titre;
         this.dateDebut = dateDebut;
         this.duree = duree;
     }
-
 
     public abstract String description();
 
@@ -26,17 +24,18 @@ public abstract class Evenement {
         return titre;
     }
 
+    public DateEvenement dateDebut() {
+        return dateDebut;
+    }
+
     public EventId id() {
         return id;
     }
 
     public boolean chevauche(Evenement autre) {
-        LocalDateTime fin = this.dateDebut.plusMinutes(this.duree.minutes());
-        LocalDateTime finAutre = autre.dateDebut.plusMinutes(autre.duree.minutes());
+        var fin = this.dateDebut.value().plusMinutes(this.duree.minutes());
+        var finAutre = autre.dateDebut.value().plusMinutes(autre.duree.minutes());
 
-        return this.dateDebut.isBefore(finAutre) && fin.isAfter(autre.dateDebut);
+        return this.dateDebut.value().isBefore(finAutre) && fin.isAfter(autre.dateDebut.value());
     }
-
-
-
 }

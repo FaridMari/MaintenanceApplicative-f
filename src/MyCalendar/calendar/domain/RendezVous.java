@@ -1,18 +1,14 @@
 package MyCalendar.calendar.domain;
 
-import MyCalendar.calendar.domain.valueObject.DureeEvenement;
-import MyCalendar.calendar.domain.valueObject.TitreEvenement;
-
-import java.time.LocalDateTime;
+import MyCalendar.calendar.domain.valueObject.*;
 
 public class RendezVous extends Evenement {
-
-    public RendezVous(TitreEvenement titre, LocalDateTime dateDebut, DureeEvenement duree) {
+    public RendezVous(TitreEvenement titre, DateEvenement dateDebut, DureeEvenement duree) {
         super(titre, dateDebut, duree);
     }
 
     @Override
     public String description() {
-        return "RDV : " + titre.value() + " à " + dateDebut.toString();
+        return "RDV : " + titre().value() + " à " + dateDebut().toString();
     }
 }

@@ -12,19 +12,19 @@ public class EventMapper {
         return switch (e.type) {
             case "RDV_PERSONNEL" -> new RendezVous(
                     new TitreEvenement(e.title),
-                    e.dateDebut,
+                    new DateEvenement(e.dateDebut),
                     new DureeEvenement(e.dureeMinutes)
             );
             case "REUNION" -> new Reunion(
                     new TitreEvenement(e.title),
-                    e.dateDebut,
+                    new DateEvenement(e.dateDebut),
                     new DureeEvenement(e.dureeMinutes),
                     new LieuEvenement(e.lieu),
                     new ParticipantsEvenement(List.of(e.participants.split(",\\s*")))
             );
             case "PERIODIQUE" -> new EvenementPeriodique(
                     new TitreEvenement(e.title),
-                    e.dateDebut,
+                    new DateEvenement(e.dateDebut),
                     new DureeEvenement(e.dureeMinutes),
                     new FrequenceRepetition(e.frequenceJours)
             );

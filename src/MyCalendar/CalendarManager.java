@@ -2,6 +2,7 @@ package MyCalendar;
 
 import MyCalendar.calendar.domain.Calendrier;
 import MyCalendar.calendar.domain.Evenement;
+import MyCalendar.calendar.domain.valueObject.DateEvenement;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,8 +16,12 @@ public class CalendarManager {
     }
 
     public List<Evenement> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        return calendrier.evenementsDansPeriode(debut, fin);
+        return calendrier.evenementsDansPeriode(
+                new DateEvenement(debut),
+                new DateEvenement(fin)
+        );
     }
+
 
     public boolean conflit(Evenement e1, Evenement e2) {
         return e1.chevauche(e2);

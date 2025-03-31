@@ -24,7 +24,7 @@ public class CalendarManagerTest {
         manager.ajouterEvenement(
                 new RendezVous(
                         new TitreEvenement("Dentiste"),
-                        date,
+                        new DateEvenement(date),
                         new DureeEvenement(60)
                 )
         );
@@ -39,19 +39,18 @@ public class CalendarManagerTest {
     }
 
 
+
     @Test
     void ajouterUneReunionDonneUneBonneDescription() {
         var manager = new CalendarManager();
         var date = LocalDateTime.of(2025, 4, 6, 14, 0);
 
-        manager.ajouterEvenement(
-                new Reunion(
-                        new TitreEvenement("Projet"),
-                        date,
-                        new DureeEvenement(90),
-                        new LieuEvenement("Salle A"),
-                        new ParticipantsEvenement(List.of("Alice", "Bob"))
-                )
+        new Reunion(
+                new TitreEvenement("Projet"),
+                new DateEvenement(date),
+                new DureeEvenement(90),
+                new LieuEvenement("Salle A"),
+                new ParticipantsEvenement(List.of("Alice", "Bob"))
         );
 
         var result = manager.eventsDansPeriode(date.minusDays(1), date.plusDays(1));
@@ -69,7 +68,7 @@ public class CalendarManagerTest {
         manager.ajouterEvenement(
                 new EvenementPeriodique(
                         new TitreEvenement("Yoga"),
-                        date,
+                        new DateEvenement(date),
                         new DureeEvenement(60),
                         new FrequenceRepetition(7)
                 )
