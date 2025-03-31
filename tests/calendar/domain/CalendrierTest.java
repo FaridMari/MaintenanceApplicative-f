@@ -90,6 +90,26 @@ class CalendrierTest {
         assertTrue(rdv2.chevauche(rdv1));
     }
 
+    @Test
+    void detecteConflitLorsquUnNouvelEvenementChevaucheUnExistant() {
+        var calendrier = new Calendrier();
+
+        var rdv1 = new RendezVous(
+                new TitreEvenement("Cours"),
+                LocalDateTime.of(2025, 4, 20, 14, 0),
+                new DureeEvenement(60)
+        );
+
+        var rdv2 = new RendezVous(
+                new TitreEvenement("Visio"),
+                LocalDateTime.of(2025, 4, 20, 14, 30),
+                new DureeEvenement(30)
+        );
+
+        calendrier.ajouter(rdv1);
+
+        assertTrue(calendrier.estEnConflitAvec(rdv2));
+    }
 
 
 }
