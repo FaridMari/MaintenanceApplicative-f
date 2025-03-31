@@ -1,5 +1,8 @@
 package calendar.domain;
 
+import MyCalendar.calendar.domain.DureeEvenement;
+import MyCalendar.calendar.domain.RendezVous;
+import MyCalendar.calendar.domain.TitreEvenement;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
